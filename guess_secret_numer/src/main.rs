@@ -5,7 +5,7 @@ use std::io;
 fn main() {
     let mut guess = String::new();
 
-    println!("Please input a number");
+    println!("Guess the number!");
 
     io::stdin()
         .read_line(&mut guess)
