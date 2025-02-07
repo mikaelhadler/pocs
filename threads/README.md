@@ -27,6 +27,7 @@ $ cargo run
 
 ## Output
 
+```sh
 Thread 1 rodando: 1
 Thread 2 rodando: 1
 Thread 1 rodando: 2
@@ -36,3 +37,4 @@ Thread 2 rodando: 3
 Thread 1 rodando: 4
 Thread 2 rodando: 4
 Execução concluída!
+```
