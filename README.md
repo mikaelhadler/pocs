@@ -1,3 +1,3 @@
-## Rust Playground
+## Poc's Playground
 
-This repositorie is to register all rust book examples
+This repository registers all pocs.
