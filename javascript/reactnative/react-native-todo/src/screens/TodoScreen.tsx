@@ -7,13 +7,15 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
-import {fetchTodos, addTodo, toggleTodo} from '../store/todoSlice';
+import {useSelector} from 'react-redux';
+import {fetchTodos, addTodo, toggleTodo, Todo} from '../store/todoSlice';
+import {RootState} from '../store/store';
+import {useAppDispatch} from '../store/hooks';
 
 const TodoScreen = () => {
   const [text, setText] = useState('');
-  const todos = useSelector(state => state.todos.items);
-  const dispatch = useDispatch();
+  const todos = useSelector((state: RootState) => state.todos.items);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchTodos());
@@ -26,7 +28,7 @@ const TodoScreen = () => {
     }
   };
 
-  const renderItem = ({item}) => (
+  const renderItem = ({item}: {item: Todo}) => (
     <TouchableOpacity
       style={styles.todoItem}
       onPress={() => dispatch(toggleTodo(item))}>
