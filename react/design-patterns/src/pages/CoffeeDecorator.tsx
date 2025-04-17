@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { Coffee } from './decorators/Coffee';
-import { SimpleCoffee } from './decorators/SimpleCoffee';
-import { MilkDecorator } from './decorators/MilkDecorator';
-import { SugarDecorator } from './decorators/SugarDecorator';
-import { WhippedCreamDecorator } from './decorators/WhippedCreamDecorator';
-import { CoffeeIcon, Milk, Cookie, Cone } from 'lucide-react';
+import { useState } from 'react';
+import { Coffee } from '../decorators/Coffee';
+import { SimpleCoffee } from '../decorators/SimpleCoffee';
+import { MilkDecorator } from '../decorators/MilkDecorator';
+import { SugarDecorator } from '../decorators/SugarDecorator';
+import { WhippedCreamDecorator } from '../decorators/WhippedCreamDecorator';
+import { CoffeeIcon, Milk, Cookie, Cone, ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { BackButton } from '../components/BackButton';
 
-function App() {
+function CoffeeDecorator() {
   const [selections, setSelections] = useState({
     milk: false,
     sugar: false,
@@ -15,7 +17,7 @@ function App() {
 
   const createCoffee = (): Coffee => {
     let coffee: Coffee = new SimpleCoffee();
-    
+
     if (selections.milk) {
       coffee = new MilkDecorator(coffee);
     }
@@ -25,7 +27,7 @@ function App() {
     if (selections.whippedCream) {
       coffee = new WhippedCreamDecorator(coffee);
     }
-    
+
     return coffee;
   };
 
@@ -39,19 +41,25 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 flex flex-col items-left justify-center p-4 gap-4">
+      <BackButton color="amber-700" />
+      {/* <div className='flex flex-row items-center gap-2 w-fit cursor-pointer'>
+        <ArrowLeft className="w-8 h-8 text-amber-700" />
+        <Link to="/" className='font-bold text-amber-700'>Back</Link>
+      </div> */}
+
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full">
+
         <div className="flex items-center gap-3 mb-6">
           <CoffeeIcon className="w-8 h-8 text-amber-700" />
-          <h1 className="text-2xl font-bold text-amber-900">Coffee Options</h1>
+          <h1 className="text-2xl font-bold text-amber-900">Coffee Decorator</h1>
         </div>
 
         <div className="space-y-4 mb-6">
           <button
             onClick={() => toggleSelection('milk')}
-            className={`flex items-center gap-3 w-full p-3 rounded-lg border transition-colors ${
-              selections.milk ? 'bg-amber-100 border-amber-300' : 'border-gray-200 hover:bg-gray-50'
-            }`}
+            className={`flex items-center gap-3 w-full p-3 rounded-lg border transition-colors ${selections.milk ? 'bg-amber-100 border-amber-300' : 'border-gray-200 hover:bg-gray-50'
+              }`}
           >
             <Milk className="w-5 h-5" />
             <span>Add Milk (+$0.50)</span>
@@ -59,9 +67,8 @@ function App() {
 
           <button
             onClick={() => toggleSelection('sugar')}
-            className={`flex items-center gap-3 w-full p-3 rounded-lg border transition-colors ${
-              selections.sugar ? 'bg-amber-100 border-amber-300' : 'border-gray-200 hover:bg-gray-50'
-            }`}
+            className={`flex items-center gap-3 w-full p-3 rounded-lg border transition-colors ${selections.sugar ? 'bg-amber-100 border-amber-300' : 'border-gray-200 hover:bg-gray-50'
+              }`}
           >
             <Cookie className="w-5 h-5" />
             <span>Add Sugar (+$0.25)</span>
@@ -69,9 +76,8 @@ function App() {
 
           <button
             onClick={() => toggleSelection('whippedCream')}
-            className={`flex items-center gap-3 w-full p-3 rounded-lg border transition-colors ${
-              selections.whippedCream ? 'bg-amber-100 border-amber-300' : 'border-gray-200 hover:bg-gray-50'
-            }`}
+            className={`flex items-center gap-3 w-full p-3 rounded-lg border transition-colors ${selections.whippedCream ? 'bg-amber-100 border-amber-300' : 'border-gray-200 hover:bg-gray-50'
+              }`}
           >
             <Cone className="w-5 h-5" />
             <span>Add Whipped Cream (+$1.00)</span>
@@ -90,4 +96,4 @@ function App() {
   );
 }
 
-export default App;
+export default CoffeeDecorator;
