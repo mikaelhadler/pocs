@@ -4,8 +4,7 @@ import { SimpleCoffee } from '../decorators/SimpleCoffee';
 import { MilkDecorator } from '../decorators/MilkDecorator';
 import { SugarDecorator } from '../decorators/SugarDecorator';
 import { WhippedCreamDecorator } from '../decorators/WhippedCreamDecorator';
-import { CoffeeIcon, Milk, Cookie, Cone, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { CoffeeIcon, Milk, Cookie, Cone } from 'lucide-react';
 import { BackButton } from '../components/BackButton';
 
 function CoffeeDecorator() {

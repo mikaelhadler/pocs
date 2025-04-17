@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { WeatherStation } from '../observers/WeatherStation';
 import { WeatherObserver } from '../observers/WeatherObserver';
 import { Thermometer, Droplets, Gauge, ArrowUp, ArrowDown } from 'lucide-react';

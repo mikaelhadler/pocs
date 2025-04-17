@@ -1,11 +1,11 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Coffee, CloudSun, Code } from 'lucide-react';
 
 interface PatternCard {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   path: string;
   gradient: string;
 }
