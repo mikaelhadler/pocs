@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { WeatherStation } from '../observers/WeatherStation';
-import { WeatherObserver } from '../observers/WeatherObserver';
+import { WeatherStation } from '../../observers/WeatherStation';
+import { WeatherObserver } from '../../observers/WeatherObserver';
 import { Thermometer, Droplets, Gauge, ArrowUp, ArrowDown } from 'lucide-react';
-import { BackButton } from '../components/BackButton';
+import { BackButton } from '../../components/BackButton';
 
 // Create display components as observers
 class CurrentConditionsDisplay implements WeatherObserver {

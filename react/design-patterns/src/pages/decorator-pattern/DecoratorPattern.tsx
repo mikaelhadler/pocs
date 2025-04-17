@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Coffee } from '../decorators/Coffee';
-import { SimpleCoffee } from '../decorators/SimpleCoffee';
-import { MilkDecorator } from '../decorators/MilkDecorator';
-import { SugarDecorator } from '../decorators/SugarDecorator';
-import { WhippedCreamDecorator } from '../decorators/WhippedCreamDecorator';
+import { Coffee } from '../../decorators/Coffee';
+import { SimpleCoffee } from '../../decorators/SimpleCoffee';
+import { MilkDecorator } from '../../decorators/MilkDecorator';
+import { SugarDecorator } from '../../decorators/SugarDecorator';
+import { WhippedCreamDecorator } from '../../decorators/WhippedCreamDecorator';
 import { CoffeeIcon, Milk, Cookie, Cone } from 'lucide-react';
-import { BackButton } from '../components/BackButton';
+import { BackButton } from '../../components/BackButton';
 
 function CoffeeDecorator() {
   const [selections, setSelections] = useState({

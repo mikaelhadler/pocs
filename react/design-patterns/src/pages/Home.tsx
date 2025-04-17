@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Coffee, CloudSun, Code } from 'lucide-react';
+import { Coffee, CloudSun, Code, Swords, Factory } from 'lucide-react';
 
 interface PatternCard {
   title: string;
@@ -15,15 +15,28 @@ const patterns: PatternCard[] = [
     title: 'Coffee Decorator',
     description: 'Customize your coffee with various add-ons using the Decorator pattern',
     icon: <Coffee className="w-8 h-8" />,
-    path: '/coffee-decorator',
+    path: '/decorator-pattern',
     gradient: 'from-amber-50 to-orange-100'
   },
   {
     title: 'Weather Observer',
     description: 'Monitor weather conditions in real-time using the Observer pattern',
     icon: <CloudSun className="w-8 h-8" />,
-    path: '/weather-observer',
+    path: '/observer-pattern',
     gradient: 'from-blue-50 to-cyan-100'
+  },
+  {
+    title: 'Battle Strategy',
+    description: 'Dynamic combat system showcasing the Strategy pattern in action',
+    icon: <Swords className="w-8 h-8" />,
+    path: '/strategy-pattern',
+    gradient: 'from-red-50 to-pink-100'
+  },{
+    title: 'Vehicle Factory',
+    description: 'Create different types of vehicles using the Factory pattern',
+    icon: <Factory className="w-8 h-8" />,
+    path: '/factory-pattern',
+    gradient: 'from-green-50 to-emerald-100'
   }
 ];
 
