@@ -42,12 +42,7 @@ function CoffeeDecorator() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 flex flex-col items-left justify-center p-4 gap-4">
-      <BackButton color="amber-700" />
-      {/* <div className='flex flex-row items-center gap-2 w-fit cursor-pointer'>
-        <ArrowLeft className="w-8 h-8 text-amber-700" />
-        <Link to="/" className='font-bold text-amber-700'>Back</Link>
-      </div> */}
-
+      <BackButton color="amber-900" />
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full">
 
         <div className="flex items-center gap-3 mb-6">
