@@ -3,6 +3,69 @@ import { WeatherStation } from '../../observers/WeatherStation';
 import { WeatherObserver } from '../../observers/WeatherObserver';
 import { Thermometer, Droplets, Gauge, ArrowUp, ArrowDown } from 'lucide-react';
 import { BackButton } from '../../components/BackButton';
+import { CodeViewer } from '../../components/CodeViewer';
+
+const codeFiles = [
+  {
+    name: 'WeatherObserver.ts',
+    language: 'typescript',
+    code: `export interface WeatherObserver {
+  update(temperature: number, humidity: number, pressure: number): void;
+}
+
+export interface WeatherSubject {
+  registerObserver(observer: WeatherObserver): void;
+  removeObserver(observer: WeatherObserver): void;
+  notifyObservers(): void;
+}`
+  },
+  {
+    name: 'WeatherStation.ts',
+    language: 'typescript',
+    code: `import { WeatherObserver, WeatherSubject } from './WeatherObserver';
+
+export class WeatherStation implements WeatherSubject {
+  private observers: WeatherObserver[] = [];
+  private temperature: number = 0;
+  private humidity: number = 0;
+  private pressure: number = 0;
+
+  registerObserver(observer: WeatherObserver): void {
+    this.observers.push(observer);
+  }
+
+  removeObserver(observer: WeatherObserver): void {
+    const index = this.observers.indexOf(observer);
+    if (index > -1) {
+      this.observers.splice(index, 1);
+    }
+  }
+
+  notifyObservers(): void {
+    for (const observer of this.observers) {
+      observer.update(this.temperature, this.humidity, this.pressure);
+    }
+  }
+
+  setMeasurements(temperature: number, humidity: number, pressure: number): void {
+    this.temperature = temperature;
+    this.humidity = humidity;
+    this.pressure = pressure;
+    this.notifyObservers();
+  }
+
+  startWeatherSimulation(): void {
+    setInterval(() => {
+      this.setMeasurements(
+        Math.round((Math.random() * 30 + 10) * 10) / 10, // Temperature between 10-40°C
+        Math.round(Math.random() * 100), // Humidity between 0-100%
+        Math.round((Math.random() * 50 + 970) * 10) / 10 // Pressure between 970-1020 hPa
+      );
+    }, 3000);
+  }
+}`
+  }
+];
 
 // Create display components as observers
 class CurrentConditionsDisplay implements WeatherObserver {
@@ -58,7 +121,7 @@ function WeatherObserverPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-100 flex flex-col justify-center p-4 gap-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-100 flex flex-col items-left p-4 gap-4">
       <BackButton color="gray-800" />
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Weather Station</h1>
@@ -107,6 +170,7 @@ function WeatherObserverPage() {
         <p className="text-sm text-gray-500 mt-6 text-center">
           Weather data updates every 3 seconds
         </p>
+        <CodeViewer files={codeFiles} />
       </div>
     </div>
   );

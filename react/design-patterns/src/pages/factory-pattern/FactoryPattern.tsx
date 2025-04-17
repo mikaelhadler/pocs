@@ -2,6 +2,164 @@ import React, { useState } from 'react';
 import { Car, Truck, Factory, Settings2 } from 'lucide-react';
 import { VehicleFactory, Vehicle } from './factory/VehicleFactory';
 import { BackButton } from '../../components/BackButton';
+import { CodeViewer } from '../../components/CodeViewer';
+
+const codeFiles = [
+  {
+    name: 'VehicleFactory.ts',
+    language: 'typescript',
+    code: `export interface Vehicle {
+  type: string;
+  make: string;
+  model: string;
+  year: number;
+  color: string;
+  getSpecs(): {
+    icon: string;
+    specs: {
+      [key: string]: string | number;
+    };
+    features: string[];
+  };
+}
+
+export class Car implements Vehicle {
+  type = 'car';
+  
+  constructor(
+    public make: string,
+    public model: string,
+    public year: number,
+    public color: string,
+    private engineType: string,
+    private transmission: string
+  ) {}
+
+  getSpecs() {
+    return {
+      icon: '🚗',
+      specs: {
+        'Engine Type': this.engineType,
+        'Transmission': this.transmission,
+        'Doors': 4,
+        'Seats': 5
+      },
+      features: [
+        'Air Conditioning',
+        'Power Windows',
+        'Bluetooth Connectivity',
+        'Backup Camera'
+      ]
+    };
+  }
+}
+
+export class Motorcycle implements Vehicle {
+  type = 'motorcycle';
+  
+  constructor(
+    public make: string,
+    public model: string,
+    public year: number,
+    public color: string,
+    private engineCC: number,
+    private bikeType: string
+  ) {}
+
+  getSpecs() {
+    return {
+      icon: '🏍️',
+      specs: {
+        'Engine': \`\${this.engineCC}cc\`,
+        'Type': this.bikeType,
+        'Seats': 2,
+        'Fuel Capacity': '4.5 gallons'
+      },
+      features: [
+        'ABS Braking',
+        'LED Lighting',
+        'Digital Dashboard',
+        'Quick Shifter'
+      ]
+    };
+  }
+}
+
+export class Truck implements Vehicle {
+  type = 'truck';
+  
+  constructor(
+    public make: string,
+    public model: string,
+    public year: number,
+    public color: string,
+    private bedLength: string,
+    private towingCapacity: string
+  ) {}
+
+  getSpecs() {
+    return {
+      icon: '🚛',
+      specs: {
+        'Bed Length': this.bedLength,
+        'Towing Capacity': this.towingCapacity,
+        'Seats': 6,
+        'Fuel Type': 'Diesel'
+      },
+      features: [
+        'Trailer Brake Control',
+        '4x4 Capability',
+        'Bed Liner',
+        'Tow Hooks'
+      ]
+    };
+  }
+}
+
+export class VehicleFactory {
+  static createVehicle(config: {
+    type: string;
+    make: string;
+    model: string;
+    year: number;
+    color: string;
+    [key: string]: any;
+  }): Vehicle {
+    switch (config.type) {
+      case 'car':
+        return new Car(
+          config.make,
+          config.model,
+          config.year,
+          config.color,
+          config.engineType,
+          config.transmission
+        );
+      case 'motorcycle':
+        return new Motorcycle(
+          config.make,
+          config.model,
+          config.year,
+          config.color,
+          config.engineCC,
+          config.bikeType
+        );
+      case 'truck':
+        return new Truck(
+          config.make,
+          config.model,
+          config.year,
+          config.color,
+          config.bedLength,
+          config.towingCapacity
+        );
+      default:
+        throw new Error(\`Unknown vehicle type: \${config.type}\`);
+    }
+  }
+}`
+  }
+];
 
 type VehicleType = 'car' | 'motorcycle' | 'truck';
 
@@ -151,7 +309,7 @@ function FactoryPattern() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     try {
       const vehicle = VehicleFactory.createVehicle(formData);
       setCreatedVehicle(vehicle);
@@ -196,7 +354,7 @@ function FactoryPattern() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex flex-col justify-center p-4 gap-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex flex-col items-left p-4 gap-4">
       <BackButton color="gray-100" />
       <div className="bg-gray-800 rounded-xl shadow-2xl p-8 max-w-4xl w-full border border-gray-700">
         <div className="flex items-center gap-3 mb-8">
@@ -211,11 +369,10 @@ function FactoryPattern() {
                 <button
                   key={type}
                   onClick={() => handleTypeChange(type as VehicleType)}
-                  className={`p-4 rounded-lg border transition-all ${
-                    formData.type === type
+                  className={`p-4 rounded-lg border transition-all ${formData.type === type
                       ? 'bg-blue-500/20 border-blue-500'
                       : 'border-gray-700 hover:border-gray-600'
-                  }`}
+                    }`}
                 >
                   <div className="flex flex-col items-center gap-2">
                     <Icon className="w-6 h-6 text-blue-400" />
@@ -336,6 +493,7 @@ function FactoryPattern() {
           )}
         </div>
       </div>
+      <CodeViewer files={codeFiles} />
     </div>
   );
 }

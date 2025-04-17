@@ -6,6 +6,84 @@ import { SugarDecorator } from '../../decorators/SugarDecorator';
 import { WhippedCreamDecorator } from '../../decorators/WhippedCreamDecorator';
 import { CoffeeIcon, Milk, Cookie, Cone } from 'lucide-react';
 import { BackButton } from '../../components/BackButton';
+import { CodeViewer } from '../../components/CodeViewer';
+
+const codeFiles = [
+  {
+    name: 'Coffee.ts',
+    language: 'typescript',
+    code: `export interface Coffee {
+  getDescription(): string;
+  getCost(): number;
+}`
+  },
+  {
+    name: 'SimpleCoffee.ts',
+    language: 'typescript',
+    code: `import { Coffee } from './Coffee';
+
+export class SimpleCoffee implements Coffee {
+  getDescription(): string {
+    return "Simple Coffee";
+  }
+
+  getCost(): number {
+    return 2.00;
+  }
+}`
+  },
+  {
+    name: 'MilkDecorator.ts',
+    language: 'typescript',
+    code: `import { Coffee } from './Coffee';
+
+export class MilkDecorator implements Coffee {
+  constructor(private coffee: Coffee) {}
+
+  getDescription(): string {
+    return \`\${this.coffee.getDescription()} + Milk\`;
+  }
+
+  getCost(): number {
+    return this.coffee.getCost() + 0.50;
+  }
+}`
+  },
+  {
+    name: 'SugarDecorator.ts',
+    language: 'typescript',
+    code: `import { Coffee } from './Coffee';
+
+export class SugarDecorator implements Coffee {
+  constructor(private coffee: Coffee) {}
+
+  getDescription(): string {
+    return \`\${this.coffee.getDescription()} + Sugar\`;
+  }
+
+  getCost(): number {
+    return this.coffee.getCost() + 0.25;
+  }
+}`
+  },
+  {
+    name: 'WhippedCreamDecorator.ts',
+    language: 'typescript',
+    code: `import { Coffee } from './Coffee';
+
+export class WhippedCreamDecorator implements Coffee {
+  constructor(private coffee: Coffee) {}
+
+  getDescription(): string {
+    return \`\${this.coffee.getDescription()} + Whipped Cream\`;
+  }
+
+  getCost(): number {
+    return this.coffee.getCost() + 1.00;
+  }
+}`
+  }
+];
 
 function CoffeeDecorator() {
   const [selections, setSelections] = useState({
@@ -40,8 +118,10 @@ function CoffeeDecorator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 flex flex-col items-left justify-center p-4 gap-4">
-      <BackButton color="amber-900" />
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 flex flex-col items-left p-4 gap-4">
+      <div className='flex justify-start max-w-md w-full'>
+        <BackButton color="amber-900" />
+      </div>
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full">
 
         <div className="flex items-center gap-3 mb-6">
@@ -86,6 +166,7 @@ function CoffeeDecorator() {
           </p>
         </div>
       </div>
+      <CodeViewer files={codeFiles} />
     </div>
   );
 }

@@ -7,6 +7,67 @@ import {
   ArcherAttackStrategy
 } from './strategies/AttackStrategy';
 import { BackButton } from '../../components/BackButton';
+import { CodeViewer } from '../../components/CodeViewer';
+
+const codeFiles = [
+  {
+    name: 'AttackStrategy.ts',
+    language: 'typescript',
+    code: `export interface AttackStrategy {
+  execute(): {
+    damage: number;
+    description: string;
+    animation: string;
+  };
+}
+
+export class SwordAttackStrategy implements AttackStrategy {
+  execute() {
+    return {
+      damage: Math.floor(Math.random() * 15) + 10,
+      description: "Slashes with a mighty sword",
+      animation: "⚔️"
+    };
+  }
+}
+
+export class MagicAttackStrategy implements AttackStrategy {
+  execute() {
+    return {
+      damage: Math.floor(Math.random() * 25) + 5,
+      description: "Casts a powerful spell",
+      animation: "🔮"
+    };
+  }
+}
+
+export class ArcherAttackStrategy implements AttackStrategy {
+  execute() {
+    return {
+      damage: Math.floor(Math.random() * 20) + 8,
+      description: "Fires a precise arrow",
+      animation: "🏹"
+    };
+  }
+}
+
+export class Character {
+  private strategy: AttackStrategy;
+  
+  constructor(strategy: AttackStrategy) {
+    this.strategy = strategy;
+  }
+
+  setStrategy(strategy: AttackStrategy) {
+    this.strategy = strategy;
+  }
+
+  attack() {
+    return this.strategy.execute();
+  }
+}`
+  }
+];
 
 function StrategyPattern() {
   const [character] = useState(() => new Character(new SwordAttackStrategy()));
@@ -60,7 +121,7 @@ function StrategyPattern() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex flex-col items-left justify-center gap-4  p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex flex-col items-left gap-4 p-4">
       <BackButton color="gray-100" />
       <div className="bg-gray-800 rounded-xl shadow-2xl p-8 max-w-md w-full border border-gray-700">
         <h1 className="text-3xl font-bold text-gray-100 mb-6 text-center">
@@ -148,6 +209,7 @@ function StrategyPattern() {
           )}
         </div>
       </div>
+      <CodeViewer files={codeFiles} />
     </div>
   );
 }
