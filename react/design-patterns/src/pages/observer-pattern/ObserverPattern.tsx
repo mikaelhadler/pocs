@@ -121,56 +121,58 @@ function WeatherObserverPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-100 flex flex-col items-left p-4 gap-4">
-      <BackButton color="gray-800" />
-      <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">Weather Station</h1>
-        
-        <div className="grid grid-cols-1 gap-6">
-          <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Thermometer className="w-6 h-6 text-gray-600" />
-                <h2 className="text-lg font-semibold text-gray-700">Temperature</h2>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-100 flex flex-col items-center justify-center p-4 gap-4">
+      <div className='flex flex-col items-left gap-4'>
+        <BackButton color="gray-800" />
+        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full">
+          <h1 className="text-2xl font-bold text-gray-800 mb-6">Weather Station</h1>
+
+          <div className="grid grid-cols-1 gap-6 min-w-80">
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Thermometer className="w-6 h-6 text-gray-600" />
+                  <h2 className="text-lg font-semibold text-gray-700">Temperature</h2>
+                </div>
+                {getTrendIcon(currentConditions.temperature, previousConditions.temperature)}
               </div>
-              {getTrendIcon(currentConditions.temperature, previousConditions.temperature)}
+              <p className={`text-3xl font-bold ${getTemperatureColor(currentConditions.temperature)}`}>
+                {currentConditions.temperature}°C
+              </p>
             </div>
-            <p className={`text-3xl font-bold ${getTemperatureColor(currentConditions.temperature)}`}>
-              {currentConditions.temperature}°C
-            </p>
+
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Droplets className="w-6 h-6 text-gray-600" />
+                  <h2 className="text-lg font-semibold text-gray-700">Humidity</h2>
+                </div>
+                {getTrendIcon(currentConditions.humidity, previousConditions.humidity)}
+              </div>
+              <p className="text-3xl font-bold text-blue-600">
+                {currentConditions.humidity}%
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Gauge className="w-6 h-6 text-gray-600" />
+                  <h2 className="text-lg font-semibold text-gray-700">Pressure</h2>
+                </div>
+                {getTrendIcon(currentConditions.pressure, previousConditions.pressure)}
+              </div>
+              <p className="text-3xl font-bold text-purple-600">
+                {currentConditions.pressure} hPa
+              </p>
+            </div>
           </div>
 
-          <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Droplets className="w-6 h-6 text-gray-600" />
-                <h2 className="text-lg font-semibold text-gray-700">Humidity</h2>
-              </div>
-              {getTrendIcon(currentConditions.humidity, previousConditions.humidity)}
-            </div>
-            <p className="text-3xl font-bold text-blue-600">
-              {currentConditions.humidity}%
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Gauge className="w-6 h-6 text-gray-600" />
-                <h2 className="text-lg font-semibold text-gray-700">Pressure</h2>
-              </div>
-              {getTrendIcon(currentConditions.pressure, previousConditions.pressure)}
-            </div>
-            <p className="text-3xl font-bold text-purple-600">
-              {currentConditions.pressure} hPa
-            </p>
-          </div>
+          <p className="text-sm text-gray-500 mt-6 text-center">
+            Weather data updates every 3 seconds
+          </p>
+          <CodeViewer files={codeFiles} />
         </div>
-
-        <p className="text-sm text-gray-500 mt-6 text-center">
-          Weather data updates every 3 seconds
-        </p>
-        <CodeViewer files={codeFiles} />
       </div>
     </div>
   );
